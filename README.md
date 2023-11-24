@@ -1,4 +1,4 @@
-# The RAspberry Pi Rugby Ball Explorer
+# The Raspberry Pi Rugby Ball Explorer
 
 6 RPi Zero 2 Ws mounted on a rugby ball shaped device for exploring shafts.  Contains setup notes and scripts to run the code.
 
