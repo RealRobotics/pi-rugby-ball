@@ -22,7 +22,6 @@ sudo apt install -y --no-install-recommends \
     libcamera-dev libjpeg-dev libtiff5-dev libpng-dev \
     libavcodec-dev libavdevice-dev libavformat-dev libswresample-dev \
     libgnutls28-dev openssl libtiff5-dev \
-    qtbase5-dev libqt5core5a libqt5gui5 libqt5widgets5 \
     python3-pip
 sudo pip3 install pyyaml ply
 sudo pip3 install --upgrade meson
@@ -70,7 +69,9 @@ then
     cd ~/git
     git clone https://github.com/raspberrypi/rpicam-apps.git
     cd rpicam-apps
-    meson setup build -Denable_libav=true -Denable_drm=true -Denable_egl=true -Denable_qt=true -Denable_opencv=false -Denable_tflite=false
+    meson setup build -Denable_libav=true -Denable_drm=true \
+        -Denable_egl=false -Denable_qt=false \
+        -Denable_opencv=false -Denable_tflite=false
     meson compile -C build
     sudo meson install -C build
     sudo ldconfig
