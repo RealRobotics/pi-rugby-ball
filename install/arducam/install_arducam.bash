@@ -59,7 +59,7 @@ then
     git clone https://github.com/raspberrypi/libcamera
     cd libcamera
     meson setup build
-    ninja -C build install
+    sudo meson install -C build
     sudo ldconfig
 fi
 
