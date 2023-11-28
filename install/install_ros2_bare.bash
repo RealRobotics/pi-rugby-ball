@@ -11,7 +11,7 @@ echo
 
 script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &>/dev/null && pwd )"
 setup_dir=${script_dir}
-. ${setup_dir}/vars.bash
+. ${setup_dir}/../vars.bash
 
 # Upgrade everything to latest.
 sudo apt update

@@ -4,7 +4,7 @@
 # Include the vars.bash script.
 script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &>/dev/null && pwd )"
 setup_dir=${script_dir}
-. ${setup_dir}/vars.bash
+. ${setup_dir}/../vars.bash
 
 #install dependencies for packages
 rosdep update
