@@ -2,7 +2,7 @@ repositories:
   # Main repo for this robot.
   src/ball:
     type: git
-    url: ssh://github.com/.git
+    url: https://github.com/RealRobotics/pi-rugby-ball.git
     version: main
   src/camera_ros:
     type: git
