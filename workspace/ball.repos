@@ -8,10 +8,10 @@ repositories:
     type: git
     url: https://github.com/pipebots/camera_ros.git
     version: add-launch-files
-  src/ros-imu-bno085:
+  src/icm20948-ros2:
     type: git
-    url: https://github.com/AndyBlightLeeds/ros-imu-bno085.git
-    version: humble
+    url: https://github.com/RealRobotics/icm20948-ros2.git
+    version: main
   src/optical_flow_ros:
     type: git
     url: https://github.com/adityakamath/optical_flow_ros.git
