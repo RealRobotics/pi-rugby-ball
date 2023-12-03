@@ -16,7 +16,3 @@ repositories:
     type: git
     url: https://github.com/RealRobotics/optical_flow_ros.git
     version: rr-simple-launch
-  src/imu_tools:
-    type: git
-    url: https://github.com/CCNYRoboticsLab/imu_tools.git
-    version: humble

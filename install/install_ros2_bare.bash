@@ -34,9 +34,6 @@ sudo apt-get install -y --no-install-recommends \
     ros-${ROS2_DISTRO}-ros-base \
     ros-${ROS2_DISTRO}-launch-testing-ament-cmake \
     ros-${ROS2_DISTRO}-rosidl-generator-dds-idl \
-    ros-${ROS2_DISTRO}-camera-info-manager \
-    ros-${ROS2_DISTRO}-ament-* \
-    ros-${ROS2_DISTRO}-cv-bridge
     python3-argcomplete \
     python3-colcon-common-extensions \
     python3-colcon-mixin \
@@ -51,14 +48,22 @@ sudo apt-get install -y --no-install-recommends \
     python3-catkin-pkg \
     flake8
 
+# Project specific dependencies.
+sudo apt-get install -y --no-install-recommends \
+    ros-${ROS2_DISTRO}-camera-info-manager \
+    ros-${ROS2_DISTRO}-cv-bridge \
+    ros-${ROS2_DISTRO}-imu-tools \
+    ros-${ROS2_DISTRO}-imu-filter-madgwick \
+    ros-${ROS2_DISTRO}-imu-complementary-filter \
+
 # Hack to prevent this warning:
 # /usr/lib/python3/dist-packages/setuptools/command/install.py:34: SetuptoolsDeprecationWarning: setup.py install is deprecated. Use build and pip and other standards-based tools.
 sudo pip3 install setuptools==58.2.0
 
 # Bootstrap rosdep
 sudo rm -f /etc/ros/rosdep/sources.list.d/20-default.list
-sudo rosdep init
-rosdep update
+sudo rosdep init --rosdistro ${ROS2_DISTRO}
+rosdep update --rosdistro ${ROS2_DISTRO}
 
 # Setup colcon mixin and metadata
 mkdir -p ${COLCON_SRC_DIR}
