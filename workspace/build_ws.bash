@@ -10,7 +10,7 @@ echo "ROS_PYTHON_VERSION: ${ROS_PYTHON_VERSION}"
 echo "ROS_DISTRO: ${ROS_DISTRO}"
 
 # Install dependencies for rosdep.
-sudo apt install -y ros-${ROS_DISTO}-ament_*
+sudo apt install -y ros-${ROS_DISTRO}-ament-*
 
 #install dependencies for packages
 echo
@@ -18,8 +18,7 @@ echo "Updating dependencies..."
 rosdep update
 echo
 echo "Installing dependencies..."
-ROS_PYTHON_VERSION=${ROS_PYTHON_VERSION} ROS_DISTRO=$ROS_DISTO rosdep install --from-paths ${WORKSPACE_DIR}/src -y -r --ignore-src
-
+ROS_PYTHON_VERSION=${ROS_PYTHON_VERSION} ROS_DISTRO=${ROS_DISTO} rosdep install --from-paths ${WORKSPACE_DIR}/src -y -r --ignore-src
 
 # Build the packages.
 echo
