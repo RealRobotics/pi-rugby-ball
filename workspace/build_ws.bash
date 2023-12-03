@@ -9,10 +9,7 @@ setup_dir=${script_dir}
 echo "ROS_PYTHON_VERSION: ${ROS_PYTHON_VERSION}"
 echo "ROS_DISTRO: ${ROS_DISTRO}"
 
-# Install dependencies for rosdep.
-sudo apt install -y ros-${ROS_DISTRO}-ament-*
-
-#install dependencies for packages
+# Install dependencies for ROS packages
 echo
 echo "Updating dependencies..."
 rosdep update

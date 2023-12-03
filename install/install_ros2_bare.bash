@@ -35,6 +35,8 @@ sudo apt-get install -y --no-install-recommends \
     ros-${ROS2_DISTRO}-launch-testing-ament-cmake \
     ros-${ROS2_DISTRO}-rosidl-generator-dds-idl \
     ros-${ROS2_DISTRO}-camera-info-manager \
+    ros-${ROS2_DISTRO}-ament-* \
+    ros-${ROS2_DISTRO}-cv-bridge
     python3-argcomplete \
     python3-colcon-common-extensions \
     python3-colcon-mixin \
