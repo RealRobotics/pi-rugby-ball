@@ -1,6 +1,6 @@
 repositories:
   # Main repo for this robot.
-  src/ball:
+  src/pi-rugby-ball:
     type: git
     url: https://github.com/RealRobotics/pi-rugby-ball.git
     version: main
