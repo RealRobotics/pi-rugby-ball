@@ -31,13 +31,13 @@ echo
 # Update and install the new kernel.
 sudo apt update
 sudo apt install -y linux-image-6.2.0-1017-raspi linux-raspi-headers-6.2.0-1017 linux-modules-6.2.0-1017-raspi linux-raspi-tools-6.2.0-1017
-```
 
 echo "Reverting /etc/apt/sources.list to the original..."
 echo
 
 # Revert sources.list to the original
 sudo cp /etc/apt/sources.list.bak /etc/apt/sources.list
+sudo apt update
 
 # Reboot for the new kernel to take effect.
 echo "Rebooting..."

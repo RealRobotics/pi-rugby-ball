@@ -112,16 +112,14 @@ Finally, comment out the newly added lines in the file `/etc/apt/sources.list` a
 
 ## Build `libcamera` and tools
 
-Clone this repo and install the `libcamera` and related code:
+Install the `libcamera` and related code using:
 
 ```bash
-cd ~/git
-git clone https://github.com/RealRobotics/rpi-kb.git
-cd rpi-kb/ubuntu/pi_camera
+cd ~/git/pi-rugby-ball/install/arducam
 ./install_arducam.bash
 ```
 
-Now we need to tell the system to use the correct overlay for the camera.  Open the config  file using
+Now we need to tell the system to use the correct overlay for the camera.  Open the config file using
 
 ```text
 sudo nano /boot/firmware/config.txt
@@ -147,7 +145,7 @@ Finally, test the camera using these commands:
 ```bash
 # Display list of cameras.
 cam --list
-# Show 5 seconds of video on screen
+# Show 5 seconds of video on screen ()
 rpicam-hello
 ```
 
@@ -165,7 +163,7 @@ install/install_rpi.bash
 workspace/setup_ws.bash
 ```
 
-Note: This install and build can take several minutes and can overheat a RPi4B.  Make sure a fan is fitted!
+Note: This install and build takes many minutes (CPU dependent) and can overheat a RPi4B.  Make sure a fan is fitted!
 
 Subsequent builds can be done using the the script [build.bash](build.bash).
 

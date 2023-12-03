@@ -15,11 +15,9 @@ install_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &>/dev/null && pwd )"
 ${install_dir}/install_ros2_bare.bash
 
 # Install python packages.
-sudo pip3 install RPi.GPIO pmw3901 icm20948
+sudo apt install -y build-essential
+sudo pip3 install RPi.GPIO spidev pmw3901 icm20948
 
-echo
-echo "Please configure the RPi Camera options and set up the PiGPIO crontab entry."
-echo "Then reboot to ensure the correct permissions are given for GPIO access."
 echo
 echo "$0 took $SECONDS seconds."
 echo
