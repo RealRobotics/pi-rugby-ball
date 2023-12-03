@@ -101,7 +101,7 @@ Install the 6.2 kernel using the following script:
 ./update_kernel.bash
 ```
 
-This will do a lot of updates and then reboot. After the reboot, verify that the new kernel is installed as follows:
+This script adds the `lunar` release files, installs the 6.2 kernel, reverts the `source.list` file and then reboots. After the reboot, verify that the new kernel is installed as follows:
 
 ```bash
 $ uname -a
