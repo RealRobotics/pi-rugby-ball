@@ -19,10 +19,7 @@ echo "Building packages..."
 echo
 cd ${WORKSPACE_DIR}
 . /opt/ros/${ROS2_DISTRO}/setup.bash
-colcon build --packages-skip \
-    imu_complementary_filter \
-    rviz_imu_plugin \
-    imu_tools
+colcon build
 
 echo
 echo "$0 took $SECONDS seconds."
