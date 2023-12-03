@@ -16,3 +16,7 @@ repositories:
     type: git
     url: https://github.com/adityakamath/optical_flow_ros.git
     version: humble
+  src/imu_tools:
+    type: git
+    url: https://github.com/CCNYRoboticsLab/imu_tools.git
+    version: humble
