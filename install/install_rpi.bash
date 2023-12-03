@@ -13,7 +13,9 @@ echo
 install_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &>/dev/null && pwd )"
 
 ${install_dir}/install_ros2_bare.bash
-${install_dir}/arducam/install_arducam.bash
+
+# Install python packages.
+sudo pip3 install RPi.GPIO pmw3901 icm20948
 
 echo
 echo "Please configure the RPi Camera options and set up the PiGPIO crontab entry."

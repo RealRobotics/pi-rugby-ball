@@ -2,10 +2,15 @@
 
 6 RPi Zero 2 Ws mounted on a rugby ball shaped device for exploring shafts.  Contains setup notes and scripts to run the code.
 
-Hardware and drivers used:
+To get the RPi ready and to run the code, please follow [these instructions](install/README.md).
+
+## Hardware and drivers
 
 * Flow sensor - PWM3091
-  * <https://github.com/adityakamath/optical_flow_ros>
+  * <https://github.com/RealRobotics/optical_flow_ros>
+  * <https://github.com/pimoroni/pmw3901-python>
+    * <https://pypi.org/project/spidev/>
+    * <https://pypi.org/project/RPi.GPIO/>
 * IMU - ICM20948
   * <https://github.com/pimoroni/icm20948-python>
   * <https://github.com/RealRobotics/icm20948-ros2>
@@ -19,27 +24,6 @@ Hardware and drivers used:
   * <https://github.com/pipebots/camera_ros>
 
 The wiring schedule is [here](wiring.md).
-
-## Setup
-
-The following commands will install ROS2 base and all the packages and tools needed for this project.
-
-```bash
-mkdir ~/git
-cd ~/git
-git clone https://github.com/RealRobotics/pi-rugby-ball.git
-cd pi-rugby-ball/setup/install/install_rpi.bash
-cd pi-rugby-ball/setup/workspace/setup_ws.bash
-```
-
-Once this is complete, to run the project:
-
-```bash
-cd ~/ball_ws
-colcon build
-ros2 launch pi_rugby_ball all.launch.py
-```
-
 
 ## Acknowledgments
 

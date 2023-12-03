@@ -37,7 +37,7 @@ BACKSPACE="guess"
 
 Then reboot.
 
-Now for the language.  Generate the `en_GB` locale.
+Now for the language.  Generate the `en_GB` locale using the command:
 
 ```bash
 sudo dpkg-reconfigure locales
@@ -45,7 +45,113 @@ sudo dpkg-reconfigure locales
 
 Select `en_GB.UTF-8` and follow the prompts to exit.  Reboot yet again.  Now `locale` shows `en_GB.UTF-8` for everything.
 
-## C
+## Update kernel to 6.2
+
+Install Andy's magic scripts to make using Git easier.
+
+```bash
+mkdir ~/git
+cd ~/git
+git clone https://github.com/andyblight/bash_scripts.git
+cd bash_scripts
+./install.sh ubuntu22.04lts
+```
+
+Open a new shell and when you are in a git repo, you will see the branch name in parentheses on the prompt.
+
+Automatic updates just mess things up on a robot, so we disable them as follows:
+
+Edit `/etc/apt/apt.conf.d/20auto-upgrades` and modify the two lines to look like this
+
+```text
+APT::Periodic::Update-Package-Lists "0";
+APT::Periodic::Unattended-Upgrade "0"
+```
+
+Do a full upgrade.
+
+```bash
+upgrade.sh
+```
+
+You'll probably need to reboot after this upgrade.
+
+Install the 6.2 kernel.  Edit the APT sources file `sudo nano /etc/apt/sources.list` and add these lines to the end:
+
+```text
+# adding this to get the new 6.2.x kernel from lunar
+deb http://ports.ubuntu.com/ubuntu-ports lunar main restricted
+deb http://ports.ubuntu.com/ubuntu-ports lunar-updates main restricted
+deb http://ports.ubuntu.com/ubuntu-ports lunar universe
+deb http://ports.ubuntu.com/ubuntu-ports lunar-updates universe
+deb http://ports.ubuntu.com/ubuntu-ports lunar multiverse
+deb http://ports.ubuntu.com/ubuntu-ports lunar-updates multiverse
+deb http://ports.ubuntu.com/ubuntu-ports lunar-backports main restricted universe multiverse
+deb http://ports.ubuntu.com/ubuntu-ports lunar-security main restricted
+deb http://ports.ubuntu.com/ubuntu-ports lunar-security universe
+deb http://ports.ubuntu.com/ubuntu-ports lunar-security multiverse
+```
+
+Then execute the following commands:
+
+```bash
+sudo apt update
+sudo apt install linux-image-6.2.0-1017-raspi linux-raspi-headers-6.2.0-1017 linux-modules-6.2.0-1017-raspi linux-raspi-tools-6.2.0-1017
+```
+
+And reboot again.  Once booted, verify that the new kernel is installed as follows:
+
+```text
+$ uname -a
+Linux ball-desktop 6.2.0-1017-raspi #19-Ubuntu SMP PREEMPT Mon Nov 13 15:35:19 UTC 2023 aarch64 aarch64 aarch64 GNU/Linux
+```
+
+Finally, comment out the newly added lines in the file `/etc/apt/sources.list` and then do `sudo apt update` to refresh the index.  This allows us to update and install code from 22.04LTS but still use a much later kernel.
+
+## Build `libcamera` and tools
+
+Clone this repo and install the `libcamera` and related code:
+
+```bash
+cd ~/git
+git clone https://github.com/RealRobotics/rpi-kb.git
+cd rpi-kb/ubuntu/pi_camera
+./install_arducam.bash
+```
+
+Now we need to tell the system to use the correct overlay for the camera.  Open the config  file using
+
+```text
+sudo nano /boot/firmware/config.txt
+```
+
+Find the line:
+
+```text
+camera_auto_detect=1
+```
+
+and change it to:
+
+```text
+camera_auto_detect=0
+dtoverlay=imx708
+```
+
+Save and reboot.
+
+Finally, test the camera using these commands:
+
+```bash
+# Display list of cameras.
+cam --list
+# Show 5 seconds of video on screen
+rpicam-hello
+```
+
+If these two work, then you have successfully set up your Raspberry Pi.  Time for a nice cup of tea!
+
+## Configure the environment
 
 To set up the software for the rugby ball, run the following:
 
@@ -60,3 +166,11 @@ workspace/setup_ws.bash
 Note: This install and build can take several minutes and can overheat a RPi4B.  Make sure a fan is fitted!
 
 Subsequent builds can be done using the the script [build.bash](build.bash).
+
+Once this is complete, run the project using:
+
+```bash
+cd ~/ball_ws
+colcon build
+ros2 launch pi_rugby_ball all.launch.py
+```
