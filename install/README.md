@@ -8,9 +8,20 @@ An internet connection is needed to do most things, so we set it up first.
 
 <https://huobur.medium.com/how-to-setup-wifi-on-raspberry-pi-4-with-ubuntu-20-04-lts-64-bit-arm-server-ceb02303e49b>
 
-Basically, this says add your `wlan0` details to `/etc/netplan/50-cloud-init.yaml`.
+Basically, this says add your `wlan0` details to `/etc/netplan/50-cloud-init.yaml` by appendding the following:
 
-I used my phone hotspot to connect as Eduroam is a pain to set up for this.
+```text
+...
+    wifis:
+        wlan0:
+            optional: true
+            access-points:
+                "MyWiFi":
+                    password: "MyPassword"
+            dhcp4: true
+```
+
+Substitute correct SSID and password. I used my phone hotspot to connect as Eduroam is a pain to set up for this.
 
 After saving the modified file, reboot and check the `wlan0` IP address with `ip addr`.
 
@@ -37,13 +48,13 @@ BACKSPACE="guess"
 
 Then reboot.
 
-Now for the language.  Generate the `en_GB` locale using the command:
+Now for the language.  Generate the correct locale using the command:
 
 ```bash
 sudo dpkg-reconfigure locales
 ```
 
-Select `en_GB.UTF-8` and follow the prompts to exit.  Reboot yet again.  Now `locale` shows `en_GB.UTF-8` for everything.
+Select `en_GB.UTF-8` and follow the prompts to exit.  Reboot yet again.  Now `locale` shows `en_GB.UTF-8` for everything and the keyboard should be correct.
 
 ## Update kernel to 6.2
 
@@ -76,32 +87,23 @@ upgrade.sh
 
 You'll probably need to reboot after this upgrade.
 
-Install the 6.2 kernel.  Edit the APT sources file `sudo nano /etc/apt/sources.list` and add these lines to the end:
-
-```text
-# adding this to get the new 6.2.x kernel from lunar
-deb http://ports.ubuntu.com/ubuntu-ports lunar main restricted
-deb http://ports.ubuntu.com/ubuntu-ports lunar-updates main restricted
-deb http://ports.ubuntu.com/ubuntu-ports lunar universe
-deb http://ports.ubuntu.com/ubuntu-ports lunar-updates universe
-deb http://ports.ubuntu.com/ubuntu-ports lunar multiverse
-deb http://ports.ubuntu.com/ubuntu-ports lunar-updates multiverse
-deb http://ports.ubuntu.com/ubuntu-ports lunar-backports main restricted universe multiverse
-deb http://ports.ubuntu.com/ubuntu-ports lunar-security main restricted
-deb http://ports.ubuntu.com/ubuntu-ports lunar-security universe
-deb http://ports.ubuntu.com/ubuntu-ports lunar-security multiverse
-```
-
-Then execute the following commands:
+Now download this repo using:
 
 ```bash
-sudo apt update
-sudo apt install linux-image-6.2.0-1017-raspi linux-raspi-headers-6.2.0-1017 linux-modules-6.2.0-1017-raspi linux-raspi-tools-6.2.0-1017
+cd ~/git
+git clone https://github.com/RealRobotics/pi-rugby-ball.git
+cd pi-rugby-ball
 ```
 
-And reboot again.  Once booted, verify that the new kernel is installed as follows:
+Install the 6.2 kernel using the following script:
 
-```text
+```bash
+./update_kernel.bash
+```
+
+This will do a lot of updates and then reboot. After the reboot, verify that the new kernel is installed as follows:
+
+```bash
 $ uname -a
 Linux ball-desktop 6.2.0-1017-raspi #19-Ubuntu SMP PREEMPT Mon Nov 13 15:35:19 UTC 2023 aarch64 aarch64 aarch64 GNU/Linux
 ```
