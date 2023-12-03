@@ -11,7 +11,7 @@ echo
 
 script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &>/dev/null && pwd )"
 setup_dir=${script_dir}
-. ${setup_dir}/vars.bash
+. ${setup_dir}/../vars.bash
 
 # Upgrade everything to latest.
 sudo apt update
@@ -31,9 +31,10 @@ fi
 # Install ROS2.
 sudo apt-get update
 sudo apt-get install -y --no-install-recommends \
-    ros-${ROS2_DISTRO}-desktop \
+    ros-${ROS2_DISTRO}-ros-base \
     ros-${ROS2_DISTRO}-launch-testing-ament-cmake \
     ros-${ROS2_DISTRO}-rosidl-generator-dds-idl \
+    ros-${ROS2_DISTRO}-camera-info-manager \
     python3-argcomplete \
     python3-colcon-common-extensions \
     python3-colcon-mixin \

@@ -6,7 +6,7 @@ set -e
 # Include the vars.bash script.
 script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &>/dev/null && pwd )"
 setup_dir=${script_dir}
-. ${setup_dir}/vars.bash
+. ${setup_dir}/../vars.bash
 
 # Create the workspace.
 mkdir -p ${COLCON_WS_DIR}

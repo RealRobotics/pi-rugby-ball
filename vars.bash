@@ -6,7 +6,8 @@ WORKSPACE_DIR=${HOME}/ball_ws
 # Needed during builds.
 UBUNTU_RELEASE=jammy
 ROS_PYTHON_VERSION=3
-ROS2_DISTRO=humble
+ROS_DISTRO=humble
+ROS2_DISTRO=${ROS_DISTRO}
 
 # Colcon workspace directories.
 COLCON_WS_DIR=${WORKSPACE_DIR}
