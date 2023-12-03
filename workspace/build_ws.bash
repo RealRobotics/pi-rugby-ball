@@ -6,16 +6,19 @@ script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &>/dev/null && pwd )"
 setup_dir=${script_dir}
 . ${setup_dir}/../vars.bash
 
+
 echo "ROS_PYTHON_VERSION: ${ROS_PYTHON_VERSION}"
 echo "ROS_DISTRO: ${ROS_DISTRO}"
 
 # Install dependencies for ROS packages
 echo
 echo "Updating dependencies..."
-rosdep update
+. /opt/ros/${ROS_DISTRO}/setup.bash
+rosdep init
+rosdep update --rosdistro ${ROS_DISTRO}
 echo
 echo "Installing dependencies..."
-ROS_PYTHON_VERSION=${ROS_PYTHON_VERSION} ROS_DISTRO=${ROS_DISTO} rosdep install --from-paths ${WORKSPACE_DIR}/src -y -r --ignore-src
+rosdep install --from-paths ${WORKSPACE_DIR}/src -y -r --ignore-src --rosdistro ${ROS_DISTRO}
 
 # Build the packages.
 echo
