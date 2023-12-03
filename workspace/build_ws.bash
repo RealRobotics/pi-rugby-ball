@@ -14,7 +14,10 @@ rosdep install --from-paths ${WORKSPACE_DIR}/src -y -r --ignore-src
 echo "Building packages..."
 cd ${WORKSPACE_DIR}
 . /opt/ros/${ROS2_DISTRO}/setup.bash
-colcon build
+colcon build --packages-skip \
+    imu_complementary_filter \
+    rviz_imu_plugin \
+    imu_tools
 
 echo
 echo "$0 took $SECONDS seconds."
