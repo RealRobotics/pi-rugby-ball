@@ -2,7 +2,7 @@
 
 6 RPi Zero 2 Ws mounted on a rugby ball shaped device for exploring shafts.  Contains setup notes and scripts to run the code.
 
-To get the RPi ready and to run the code, please follow [these instructions](install/README.md).
+To get the RPi ready and to run the code, please follow [these instructions](install.md).
 
 ## Hardware and drivers
 
