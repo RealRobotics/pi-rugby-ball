@@ -14,6 +14,7 @@ Press Ctrl+C to exit!
 parser = argparse.ArgumentParser()
 parser.add_argument('--board', type=str,
                     choices=['pmw3901', 'paa5100'],
+                    default='pmw3901',
                     required=True,
                     help='Breakout type.')
 parser.add_argument('--rotation', type=int,
