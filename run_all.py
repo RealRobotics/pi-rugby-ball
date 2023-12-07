@@ -47,6 +47,7 @@ class Runner:
         timestamp = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
         filename = f"data_{timestamp}.csv"
         self._csv_file = open(filename, "w", newline='')
+        print(f"Writing data to {filename}")
         self._csv_writer = csv.writer(self._csv_file, delimiter=',',
                             quotechar='"', quoting=csv.QUOTE_MINIMAL)
         # Header row
