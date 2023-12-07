@@ -52,13 +52,13 @@ class Runner:
         print("Flow sensor started")
 
     # Initialize Camera
-    def _camera_init(self):
+    def _camera_start(self):
         self._camera = Picamera2()
         main_res = {"size": (1920, 1280)}
         configuration = self._camera.create_video_configuration(main=main_res)
         self._camera.configure(configuration)
-        encoder = H264Encoder(10000000)
-        self._camera.start_recording(encoder,
+        self._encoder = H264Encoder(10000000)
+        self._camera.start_recording(self._encoder,
                                      f"{self._data_directory}/video.h264",
                                      pts=f"{self._data_directory}/pts.h264")
         print(f"Video recording started using {main_res}")
@@ -99,13 +99,6 @@ class Runner:
             pass
         return flo_x, flo_y, flo_t_x, flo_t_y
 
-    def _save_image(self):
-        # Capture image from the camera and save it to file.
-        self._image_count += 1
-        request = self._camera.capture_request()
-        request.save("main", f"{self._data_directory}/image{self._image_count:05}.jpg")
-        request.release()
-
     def _log_data(self):
         timestamp = datetime.datetime.now().strftime("%Y%m%d%H%M%S.%f")
         # Get IMU data.
@@ -125,10 +118,9 @@ class Runner:
         # Must be first to initialize the data directory.
         self._file_init()
         self._flow_sensor_init()
-        self._camera_init()
+        self._camera_start()
         try:
             while True:
-                self._save_image()
                 self._log_data()
                 time.sleep(self._sleep_time)
         except KeyboardInterrupt:
