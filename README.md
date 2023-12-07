@@ -2,7 +2,14 @@
 
 6 RPi Zero 2 Ws mounted on a rugby ball shaped device for exploring shafts.  Contains setup notes and scripts to run the code.
 
-To get the RPi ready and to run the code, please follow [these instructions](install/README.md).
+To get the RPi ready and to run the code, please follow [these instructions](install.md).
+
+The RPi Zero 2W are not the best at handling large video images and proved to be quite limited as far as performance goes.  Details can be found in the [Camera Test Results](camera_test_results.md).
+
+TLDR;
+Maximum reliable video size: 1920x1280 at 30fps.
+Maximum still frame rate at 4608x2592 = 1fps, 2304x1296 = 2fps, 1536x864 = 3fps.
+Writes to micro SD card are main blockage.
 
 ## Hardware and drivers
 
