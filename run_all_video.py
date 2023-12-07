@@ -54,17 +54,16 @@ class Runner:
     # Initialize Camera
     def _camera_start(self):
         self._camera = Picamera2()
-        main_res = {"size": (1920, 1280)}
-        # configuration = self._camera.create_video_configuration(main=main_res)
+        main_config = {"size": (1920, 1280)}
+        # main_config = {"size": (2304, 1296)}
+        # configuration = self._camera.create_video_configuration(main=main_config)
         configuration = self._camera.create_video_configuration()
         self._camera.configure(configuration)
         self._encoder = H264Encoder(10000000)
         self._camera.start_recording(self._encoder,
-                                     "video.h264",
-                                     pts="pts.txt")
-                                    #  f"{self._data_directory}/video.h264",
-                                    #  pts=f"{self._data_directory}/pts.h264")
-        print(f"Video recording started using {main_res}")
+                                     f"{self._data_directory}/video.h264",
+                                     pts=f"{self._data_directory}/pts.h264")
+        print(f"Video recording started using {main_config}")
 
     def _get_imu_acc_gyro_data(self):
         ax, ay, az, gx, gy, gz = self._imu.read_accelerometer_gyro_data()
