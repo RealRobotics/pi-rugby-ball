@@ -2,6 +2,7 @@
 
 import csv
 import datetime
+import os
 import time
 from picamera2 import Picamera2
 from icm20948 import ICM20948
@@ -16,9 +17,11 @@ class Runner:
     def __init__(self):
         self._flow_sensor_init()
         self._imu = ICM20948()
+        print("IMU started")
         # Calculate the time to sleep between captures based on the frame rate
         self._sleep_time = 1 / FRAME_RATE
         self._image_count = 0
+        self._data_directory = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
 
     # Initialize Flow Sensor
     def _flow_sensor_init(self):
@@ -28,6 +31,7 @@ class Runner:
         self._flow_sensor.set_rotation(FLOW_SENSOR_ROTATION)
         self._total_x = 0.0
         self._total_y = 0.0
+        print("Flow sensor started")
 
     # Initialize Camera
     def _camera_init(self):
@@ -39,13 +43,17 @@ class Runner:
         # Give time for Aec and Awb to settle, before disabling them
         time.sleep(1)
         self._camera.set_controls({"AeEnable": False, "AwbEnable": False, "FrameRate": FRAME_RATE})
-        print(f"Set frame rate to {FRAME_RATE}fps using {main_res}")
         # And wait for those settings to take effect
         time.sleep(1)
+        print(f"Camera started with frame rate of {FRAME_RATE}fps using {main_res}")
 
     def _file_init(self):
+        try:
+            os.mkdir(self._data_directory)
+        except FileExistsError:
+            pass  # Ignore
         timestamp = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
-        filename = f"data_{timestamp}.csv"
+        filename = f"{self._data_directory}/data.csv"
         self._csv_file = open(filename, "w", newline='')
         print(f"Writing data to {filename}")
         self._csv_writer = csv.writer(self._csv_file, delimiter=',',
@@ -98,7 +106,7 @@ class Runner:
         # Capture image from the camera and save it to file.
         self._image_count += 1
         request = self._camera.capture_request()
-        request.save("main", f"image{self._image_count:05}.jpg")
+        request.save("main", f"{self._data_directory}/image{self._image_count:05}.jpg")
         request.release()
 
     def _log_data(self):
