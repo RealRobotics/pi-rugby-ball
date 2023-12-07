@@ -4,7 +4,7 @@ import csv
 import datetime
 import time
 from picamera2 import Picamera2
-from pimoroni_icm20948 import ICM20948
+from icm20948 import ICM20948
 from pmw3901 import PMW3901, BG_CS_FRONT_BCM
 
 # 0, 90, 180, 270
@@ -46,9 +46,9 @@ class Runner:
     def _file_init(self):
         timestamp = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
         filename = f"data_{timestamp}.csv"
-        csv_file = open(filename, "w", newline='')
-        self._csv_writer = csv.writer(csv_file, delimiter=' ',
-                            quotechar='|', quoting=csv.QUOTE_MINIMAL)
+        self._csv_file = open(filename, "w", newline='')
+        self._csv_writer = csv.writer(self._csv_file, delimiter=',',
+                            quotechar='"', quoting=csv.QUOTE_MINIMAL)
         # Header row
         self._csv_writer.writerow(["Timestamp",
                                    "Acc x", "Acc y", "Acc z",
