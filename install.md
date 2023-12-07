@@ -39,7 +39,9 @@ cd tests
 
 ## Running
 
-The magnetometer needs to be calibrated by "rotating the sensor (x-axis upwards) through 360 degrees".
+Run the script `run_all.py`.  Once it settles down,
+
+The magnetometer needs to be calibrated by "rotating the sensor (x-axis upwards) through 360 degrees".  Not sure how that is going to work on the ball.
 
 The IMU
 
