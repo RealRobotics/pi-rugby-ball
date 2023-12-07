@@ -124,8 +124,8 @@ class Runner:
                 self._log_data()
                 time.sleep(self._sleep_time)
         except KeyboardInterrupt:
-            self._csv_file.close()
             self._camera.stop()
+            self._csv_file.close()
 
 
 def main(args=None):
