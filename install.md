@@ -4,7 +4,7 @@
 
 Start with the latest Raspberry Pi OS Lite (32-bit) released 2023-12-05.
 
-Set up user as "ball" and use UK keyboard and language.
+Set user as "ball" and use UK keyboard and language.
 
 Connect to a hotspot name "BallWiFi" with the correct password.
 
@@ -32,6 +32,7 @@ There are several test scripts in the directory `test`.  Run each one to test a 
 
 ```bash
 cd tests
+./camera_timed_stills.py
 ./camera_video.py # THIS does not work.  Try timed stills
 ./flow_sensor.py
 ./imu.py
@@ -39,11 +40,7 @@ cd tests
 
 ## Running
 
-Run the script `run_all.py`.  Once it settles down,
-
-The magnetometer needs to be calibrated by "rotating the sensor (x-axis upwards) through 360 degrees".  Not sure how that is going to work on the ball.
-
-The IMU
+Run the script `run_all.py`.  Once it settles down, the magnetometer needs to be calibrated by "rotating the sensor (x-axis upwards) through 360 degrees".  Not sure how that is going to work on the ball as all of the IMUs are in different orientations.  Probably does this so that the magnetometer of one IMU is correctly calibrated.
 
 ## Camera options
 
@@ -58,3 +55,4 @@ and then if you want an mkv file (do this on a laptop afterwards):
 ```bash
 mkvmerge -o test.mkv --timecodes 0:timestamps.txt test.h264
 ```
+
