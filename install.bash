@@ -4,7 +4,7 @@
 # Install necessary tools.
 sudo apt update
 sudo apt install python3-pip
-sudo pip3 install --break-system-packages icm2094 pmw3901
+sudo pip3 install --break-system-packages icm20948 pmw3901
 
 # Install the examples.
 cd git
