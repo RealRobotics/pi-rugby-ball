@@ -3,7 +3,7 @@
 
 # Install necessary tools.
 sudo apt update
-sudo apt install python3-pip python3-picamera2
+sudo apt install python3-pip python3-picamera2 python3-opencv
 sudo pip3 install --break-system-packages icm20948 pmw3901
 
 # Install the examples.

@@ -2,7 +2,6 @@
 # Based on the example
 # https://github.com/raspberrypi/picamera2/blob/main/examples/capture_timelapse.py
 
-#!/usr/bin/python3
 import time
 
 from picamera2 import Picamera2
