@@ -16,13 +16,30 @@ DATA_RATE_HZ = 5.0
 
 class Runner:
     def __init__(self):
-        self._flow_sensor_init()
         self._imu = ICM20948()
         print("IMU started")
         # Calculate the time to sleep between captures based on the frame rate
         self._sleep_time = 1.0 / DATA_RATE_HZ
         self._image_count = 0
+
+    def _file_init(self):
         self._data_directory = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
+        try:
+            os.mkdir(self._data_directory)
+        except FileExistsError:
+            pass  # Ignore
+        filename = f"{self._data_directory}/data.csv"
+        print(f"Writing data to {filename}")
+        self._csv_file = open(filename, "w", newline='')
+        self._csv_writer = csv.writer(self._csv_file, delimiter=',',
+                            quotechar='"', quoting=csv.QUOTE_MINIMAL)
+        # Header row
+        self._csv_writer.writerow(["Timestamp",
+                                   "Acc x", "Acc y", "Acc z",
+                                   "Gyr x", "Gyr y", "Gyr z",
+                                   "Mag x", "Mag y", "Mag z",
+                                   "Flow x", "Flow y",
+                                   "FloT x", "FloT y"])
 
     # Initialize Flow Sensor
     def _flow_sensor_init(self):
@@ -45,24 +62,6 @@ class Runner:
                                      f"{self._data_directory}/video.h264",
                                      pts=f"{self._data_directory}/pts.h264")
         print(f"Video recording started using {main_res}")
-
-    def _file_init(self):
-        try:
-            os.mkdir(self._data_directory)
-        except FileExistsError:
-            pass  # Ignore
-        filename = f"{self._data_directory}/data.csv"
-        self._csv_file = open(filename, "w", newline='')
-        print(f"Writing data to {filename}")
-        self._csv_writer = csv.writer(self._csv_file, delimiter=',',
-                            quotechar='"', quoting=csv.QUOTE_MINIMAL)
-        # Header row
-        self._csv_writer.writerow(["Timestamp",
-                                   "Acc x", "Acc y", "Acc z",
-                                   "Gyr x", "Gyr y", "Gyr z",
-                                   "Mag x", "Mag y", "Mag z",
-                                   "Flow x", "Flow y",
-                                   "FloT x", "FloT y"])
 
     def _get_imu_acc_gyro_data(self):
         ax, ay, az, gx, gy, gz = self._imu.read_accelerometer_gyro_data()
@@ -123,8 +122,10 @@ class Runner:
             ])
 
     def run(self):
-        self._camera_init()
+        # Must be first to initialize the data directory.
         self._file_init()
+        self._flow_sensor_init()
+        self._camera_init()
         try:
             while True:
                 self._save_image()
