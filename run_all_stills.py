@@ -19,7 +19,7 @@ class Runner:
         self._imu = ICM20948()
         print("IMU started")
         # Calculate the time to sleep between captures based on the frame rate
-        self._sleep_time = 1 / FRAME_RATE
+        self._sleep_time = 1.0 / FRAME_RATE
         self._image_count = 0
         self._data_directory = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
 
@@ -52,7 +52,6 @@ class Runner:
             os.mkdir(self._data_directory)
         except FileExistsError:
             pass  # Ignore
-        timestamp = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
         filename = f"{self._data_directory}/data.csv"
         self._csv_file = open(filename, "w", newline='')
         print(f"Writing data to {filename}")

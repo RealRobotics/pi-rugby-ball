@@ -33,7 +33,7 @@ There are several test scripts in the directory `test`.  Run each one to test a 
 ```bash
 cd tests
 ./camera_timed_stills.py
-./camera_video.py # THIS does not work.  Try timed stills
+./camera_video.py
 ./flow_sensor.py
 ./imu.py
 ```
